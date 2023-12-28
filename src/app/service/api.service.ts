@@ -5,6 +5,7 @@ import { User } from '../Model/User';
 import { Router } from '@angular/router';
 import { Post } from '../Model/Post';
 import { Observable } from 'rxjs';
+import { Category } from '../Model/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -22,5 +23,11 @@ export class ApiService {
   }
   getAllPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(this.url + "/api/posts");
+  }
+  getPost(slug: string): Observable<Post> {
+    return this.http.get<Post>(this.url + "/api/posts/" + slug);
+  }
+  getAllCategories(): Observable<Category[]> {
+    return this.http.get<Category[]>(this.url + "/api/categories");
   }
 }

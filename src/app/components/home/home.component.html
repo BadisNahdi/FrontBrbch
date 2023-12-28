@@ -52,11 +52,11 @@
                 <h2 class="card-title h4">{{ post?.title }}</h2>
                 <p class="card-text">
                   {{ post.content | slice : 0 : 100
-                  }}{{ post?.content.length > 100 ? "..." : "" }}
+                  }}{{ (post?.content?.length || 0) > 100 ? "..." : "" }}
                 </p>
                 <a
                   class="btn btn-primary"
-                  routerLnk="/post/detail/{{ post?.slug }}"
+                  [routerLink]="'/post/detail/' + post?.slug"
                   >Read more →</a
                 >
               </div>
@@ -143,20 +143,15 @@
         <div class="card-header">Categories</div>
         <div class="card-body">
           <div class="row">
-            <div class="col-sm-6">
-              <ul class="list-unstyled mb-0">
-                <li><a href="#!">Web Design</a></li>
-                <li><a href="#!">HTML</a></li>
-                <li><a href="#!">Freebies</a></li>
-              </ul>
-            </div>
-            <div class="col-sm-6">
-              <ul class="list-unstyled mb-0">
-                <li><a href="#!">JavaScript</a></li>
-                <li><a href="#!">CSS</a></li>
-                <li><a href="#!">Tutorials</a></li>
-              </ul>
-            </div>
+            <ng-container *ngFor="let category of categories">
+              <div class="col-sm-6">
+                <ul class="list-unstyled mb-0">
+                  <li>
+                    <a href="#!">{{ category?.title }}</a>
+                  </li>
+                </ul>
+              </div>
+            </ng-container>
           </div>
         </div>
       </div>
