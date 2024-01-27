@@ -13,25 +13,21 @@
             <div class="text-muted fst-italic mb-2">
               Posted on {{ resolvedPost?.createdOn | date : "medium" }} by
               {{ resolvedPost?.user?.firstname }}
+              {{ resolvedPost?.user?.lastname }}
             </div>
-            <!-- Post categories-->
+            <!-- Post categories
             <a
               class="badge bg-secondary text-decoration-none link-light"
               href="#!"
-              >Web Design</a
-            >
-            <a
-              class="badge bg-secondary text-decoration-none link-light"
-              href="#!"
-              >Freebies</a
-            >
+              >{{resolvedPost?.category?.title?}}</a
+            > -->
           </header>
           <!-- Preview image figure-->
           <figure class="mb-4">
             <img
               class="img-fluid rounded"
-              src="https://dummyimage.com/900x400/ced4da/6c757d.jpg"
-              alt="..."
+              src="resolvedPost.mainImageUrl"
+              alt="{{ resolvedPost.title }}"
             />
           </figure>
           <!-- Post content-->
@@ -143,27 +139,7 @@
           </div>
         </div>
         <!-- Categories widget-->
-        <div class="card mb-4">
-          <div class="card-header">Categories</div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-6">
-                <ul class="list-unstyled mb-0">
-                  <li><a href="#!">Web Design</a></li>
-                  <li><a href="#!">HTML</a></li>
-                  <li><a href="#!">Freebies</a></li>
-                </ul>
-              </div>
-              <div class="col-sm-6">
-                <ul class="list-unstyled mb-0">
-                  <li><a href="#!">JavaScript</a></li>
-                  <li><a href="#!">CSS</a></li>
-                  <li><a href="#!">Tutorials</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
+        <app-category-list></app-category-list>
         <!-- Side widget-->
         <div class="card mb-4">
           <div class="card-header">Side Widget</div>

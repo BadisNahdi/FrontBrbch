@@ -3,7 +3,7 @@ import { ApiService } from '../../service/api.service';
 import { Post } from '../../Model/Post';
 import { Subscription, takeUntil } from 'rxjs';
 import { CommonModule, NgFor } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { Category } from '../../Model/Category';
 
 @Component({
@@ -18,20 +18,29 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   posts: Post[] | undefined;
   categories: Category[] | undefined;
-  private subscription!: Subscription;
+  private subscription:Subscription = new Subscription();
   constructor(
-    private apiService: ApiService
+    private apiService: ApiService,
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.subscription = this.apiService.getAllPosts().subscribe(
-      (res) => this.posts = res,
-      (err) => console.log(err)
-    );
-    this.subscription = this.apiService.getAllCategories().subscribe(
-      (res) => this.categories = res,
-      (err) => console.log(err)
-    );
+
+    this.route.paramMap.subscribe(params => {
+      const categoryTitle = params.get('title');
+      if (this.router.url === `/post/categoy/${categoryTitle}`) {
+        this.apiService.getAllPosts().subscribe(
+          (res) => this.posts = res.filter(post => post.category.title === categoryTitle),
+          (err) => console.log(err)
+        );
+      } else {
+        this.apiService.getAllPosts().subscribe(
+          (res) => this.posts = res,
+          (err) => console.log(err)
+        );
+      }
+    });
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

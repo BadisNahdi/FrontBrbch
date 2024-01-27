@@ -4,11 +4,12 @@ import { Post } from '../../Model/Post';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../service/api.service';
 import { CommonModule, NgIf } from '@angular/common';
+import { CategoryListComponent } from '../category-list/category-list.component';
 
 @Component({
   selector: 'app-single-post',
   standalone: true,
-  imports: [CommonModule, NgIf],
+  imports: [CommonModule, NgIf, CategoryListComponent],
   templateUrl: './single-post.component.html',
   styleUrl: './single-post.component.css'
 })
